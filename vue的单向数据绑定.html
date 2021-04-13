@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <span>{{num}}</span>
+        <button v-on:click='add'>点击</button>
+    </div>
+    <div>{{num}}</div>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:'#app',//el就是一个选择器，他就是选择vue控制的范围
+            data:{ //data就是存放数据的地方，data里边的键值对最终他会挂载到当前的vue实例上,在视图层的小胡子里去拿实例上的属性可以直接写
+                num:100
+            },
+            methods:{
+                //存放的是各种事件对应的方法
+                //methods里的键值对最总会被挂载到当前的vue实例上
+                // add:function(){
+                //     vm.num++;
+                // },
+                add(){vm.num++}
+            }
+        })
+        console.log(vm);
+        //在vue里想改变页面的内容，只需要把对应的数据更改即可，视图中只要使用当前的数据，那就会自动更新的。
+
+        //视图<==>数据，vue的双向数据绑定
+    </script>
+</body>
+</html>

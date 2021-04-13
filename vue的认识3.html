@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- {{num>99?"大了":"小了"}} -->
+        <!-- {{fn()}} -->
+        <!-- {{num+100}} -->
+        <!-- {{obj.ss}} -->
+        {{ary}}
+    </div>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script>
+        //1.在视图中null,undefined是渲染的空，不会显示对应的数据值,如果数据是引用值，那他会把对象基于json.stringify转以下
+        //2.小胡子里不光可以动态获取数据，还可以写js逻辑语句，还可以写函数执行,还可以进行算法运算
+
+        //3. 不是所有数据都是响应式的(对象，数组（数据本身是响应式的，但是数组里面的值不是响应式的，是数组改变原数组的7个方法来更改视图），不是input的标签)
+            //3.1 如果一开始对象中没有的数据在视图中展示是没有响应式的，以后就算加上了，视图也不会更新
+                //解决办法：
+                //3.2 更改的数据的时候，把对象直接替换，因为对象是原始数据，它是响应式的
+                //3.3 一开始如果不知道当前的值为多少，可以给他赋一个值，null,undeined都可以，但不要不写
+                //3.4 vm.$set(obj,key,value)给当前的obj增加键值对，并且拥有响应式
+            //3.5 数组里的值本身是没有响应式的，通过length获取数组的索引对数组进行操作时不能引起视图的更新的
+                //3.6 解决办法：vue对可以操作原数组的7个方法进行了二次封装，并且放到了数组的重定向之后的原型上，当数组调用这7个新的方法的时候可以实现更改视图（这个新原型的__proto__是指向数组的老原型的，所以之前的方法还可以使用）
+        let obj = {a:1,b:2,c:3}
+        let vm = new Vue({
+            el:'#app',
+            data:{//data在初始化的时候存在的数据是有响应式的
+                num:100,
+                // num:null/undefined
+                // num:{"a":1,"b":2},
+                // num:function(){}
+                obj:obj,
+                ary:[1,2,3]
+            },
+            methods:{
+                fn(){
+                    return 900
+                }
+            }
+        })
+    </script>
+</body>
+</html>
